@@ -137,8 +137,8 @@ fn main() {
         println!("{}",serde_json::to_string(&result).unwrap());
     }
     // Generate graph
-    else if args.len() < 7 {
-        panic!("Usage: program generator-name n avg_degree k rho output-file-name\n generator-name --- gilbert,hyperbolic,powerlaw\n output-file-name --- [UNUSED at the moment]!");
+    else if args.len() < 6 {
+        panic!("Usage: program generator-name n avg_degree k rho\n generator-name --- gilbert,hyperbolic,powerlaw!");
     }
     else {
         let result = Command::new("../../analyse/bin/python")

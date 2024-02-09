@@ -311,8 +311,9 @@ def read_network_repository_graph(path, n):
 sys.setrecursionlimit(100000)
 
 if len(sys.argv) < 4:
-    print("Usage: main.py [setup] [output-file-name] [generator]\n setup    --- small_ilp,large,real_world\n generator --- gilbert,hyperbolic,powerlaw,euclidean")
-    sys.exit(-1)
+    if len(sys.argv) != 3 or sys.argv[1] != 'real_world':
+        print("Usage: main.py [setup] [output-file-name] [generator]\n setup    --- small_ilp,large,real_world\n generator --- gilbert,hyperbolic,powerlaw,euclidean")
+        sys.exit(-1)
 
 n_vals = []
 use_ilp = True
@@ -374,9 +375,6 @@ for k in k_vals:
                         g = nk.generators.ErdosRenyiGenerator(n, p, directed=False).generate()
                     elif sys.argv[3] == 'hyperbolic':
                         g = nk.generators.HyperbolicGenerator(n, k=3).generate()
-                    elif sys.argv[3] == 'euclidean':
-                        r = math.sqrt(1/(3*math.pi))
-                        g = nk.nxadapter.nx2nk(nx.random_geometric_graph(n=n,dim=2,radius=r))
                     elif sys.argv[3] == 'powerlaw':
                         g = nk.generators.HyperbolicGenerator(n, k=3).generate()
                         switcher = nk.randomization.EdgeSwitching(g,numberOfSwapsPerEdge=100.0)
